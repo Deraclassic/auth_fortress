@@ -15,6 +15,7 @@ AuthFortress is a secure user authentication and authorization system built with
 - [API Documentation](#api-documentation)
 - [Contributing](#contributing)
 - [License](#license)
+- [Contact](#contact)
 
 ## Introduction
 
