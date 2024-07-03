@@ -3,6 +3,8 @@ package com.dera.AuthFortress.infrastructure.controller;
 import com.dera.AuthFortress.payload.request.AuthenticationRequest;
 import com.dera.AuthFortress.payload.request.RegistrationRequest;
 import com.dera.AuthFortress.payload.response.AuthenticationResponse;
+import com.dera.AuthFortress.payload.response.RegisterResponse;
+import com.dera.AuthFortress.payload.response.ResponseMessage;
 import com.dera.AuthFortress.repository.UserRepository;
 import com.dera.AuthFortress.service.AuthenticationService;
 import jakarta.mail.MessagingException;
@@ -25,8 +27,9 @@ public class AuthenticationController {
     public ResponseEntity<?> register(
             @RequestBody @Valid RegistrationRequest request
     ) throws MessagingException {
-        service.register(request);
-        return ResponseEntity.accepted().build();
+
+        ResponseEntity<ResponseMessage> authenticationResponse = service.register(request);
+        return ResponseEntity.ok(authenticationResponse);
     }
 
     @PostMapping("/login")

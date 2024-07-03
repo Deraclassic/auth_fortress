@@ -8,6 +8,7 @@ import com.dera.AuthFortress.infrastructure.config.JwtService;
 import com.dera.AuthFortress.payload.request.AuthenticationRequest;
 import com.dera.AuthFortress.payload.request.RegistrationRequest;
 import com.dera.AuthFortress.payload.response.AuthenticationResponse;
+import com.dera.AuthFortress.payload.response.ResponseMessage;
 import com.dera.AuthFortress.repository.AccessTokenRepository;
 import com.dera.AuthFortress.repository.UserRepository;
 import com.dera.AuthFortress.service.AuthenticationService;
@@ -17,6 +18,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -46,7 +48,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 
     @Override
-    public void register(RegistrationRequest request) throws MessagingException {
+    public ResponseEntity<ResponseMessage> register(RegistrationRequest request) throws MessagingException {
         var user = TheUser.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
@@ -59,6 +61,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .build();
         userRepository.save(user);
         sendValidationEmail(user);
+        return ResponseEntity.ok(new ResponseMessage("Account registered successfully"));
     }
 
 
@@ -126,6 +129,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         String jwtToken = jwtService.generateToken(claims, user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .responseMessage("You have logged in successfully")
                 .build();
     }
 

@@ -32,18 +32,18 @@ public class SecurityConfig {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(
                                 antMatcher(HttpMethod.POST, "/api/v1/auth/**"),
-antMatcher(HttpMethod.GET, "/api/v1/auth/**")
-//
-//                                        "/swagger-ui.html",
-//                                        "/webjars/**",
-//                                        "/swagger-ui/**",
-//                                        "/configuration/security",
-//                                        "/configuration/ui",
-//                                        "/swagger-resources/**",
-//                                        "/swagger-resources",
-//                                        "/v2/api-docs",
-//                                        "/v3/api-docs",
-//                                        "/v3/api-docs/**"
+                                antMatcher(HttpMethod.GET, "/api/v1/auth/**"),
+                                        antMatcher("/swagger-ui.html"),
+                                        antMatcher("/webjars/**"),
+                                        antMatcher("/swagger-ui/**"),
+                                        antMatcher("/configuration/security"),
+                                        antMatcher("/configuration/ui"),
+                                        antMatcher("/swagger-resources/**"),
+                                        antMatcher("/swagger-resources"),
+                                        antMatcher("/v2/api-docs"),
+                                        antMatcher("/v3/api-docs"),
+                                        antMatcher("/v3/api-docs/**")
+
                                 ).permitAll()
                                 .requestMatchers(antMatcher("/admin/**")).hasAnyAuthority("ADMIN")
                                 .requestMatchers(antMatcher("/user/**")).hasAnyAuthority("USER")
