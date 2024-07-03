@@ -20,24 +20,47 @@ AuthFortress is a secure user authentication and authorization system built with
 
 AuthFortress provides robust user authentication and authorization capabilities using Spring Security and JWT tokens. It manages user registration, login, account activation via email, and role-based access control.
 
-## Features
+### FEATURES
 
-- User registration with email verification
-- User login with JWT token generation
-- Role-based access control (ADMIN, USER)
-- Secure password hashing using BCrypt
-- Integration with PostgreSQL database
+**User Authentication and Security**
+
+- User Registration: Allow users to create accounts by providing their names, email, phone number, and password.
+- User Login: Authenticate users with their credentials (email and password) to access the application securely.
+- Password Encryption: Encrypt user passwords using bcrypt to enhance security.
+- Session Management: Maintain user sessions securely to prevent unauthorized access.
+
+**JWT (JSON Web Token) Integration**
+
+- Token-based Authentication: Generate and validate JWTs to manage user sessions securely across requests.
+
+**Swagger (OpenAPI) Integration**
+
+- API Documentation: Automatically generate API documentation using Swagger for easy API exploration and testing.
+
+**Lombok Integration**
+
+- Reduce Boilerplate Code: Improve code readability and maintainability by reducing boilerplate code with Lombok annotations.
+
+**JavaMailSender Integration**
+
+- Email Notifications: Send activation emails and notifications to users using JavaMailSender for effective communication.
+
+### Role-based Access Control
+
+- **Role Assignment:** Assign roles (e.g., admin, user) to users to define their permissions within the application.
+- **Authorization:** Control access to specific resources based on user roles and permissions.
 
 
 ## Technologies Used
 
-- Spring Boot
-- Spring Security
-- PostgreSQL
-- JWT (JSON Web Token)
-- Swagger (OpenAPI)
-- Lombok
-- JavaMailSender
+- **Backend:** Java, Spring Boot
+- **Database:** PostgreSQL
+- **Authentication:** JSON Web Tokens (JWT)
+- **Testing:** JUnit, Mockito
+- **Authentication:** JWT (JSON Web Token)
+- **API Documentation:** Swagger (OpenAPI)
+- **Simplified Java Development:** Lombok
+- **Email Notifications:** JavaMailSender
 
 ## Prerequisites
 
@@ -94,8 +117,8 @@ Before you begin, ensure you have the following installed:
       mvn spring-boot:run
       ```
 
-5. **Access the application:**
-   - Open a web browser and go to `http://localhost:8080`.
+### TESTING PROCEDURE
+Backend Testing: Unit testing was done using frameworks like JUnit and Mockito to ensure proper functionality and error handling.
 
 ## API Documentation
 
