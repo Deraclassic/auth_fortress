@@ -12,6 +12,6 @@ public class AuthenticationResponse {
     private String responseCode;
     private String responseMessage;
     private String email;
-    private String firstName;
+    private String fullName;
     private String token;
 }

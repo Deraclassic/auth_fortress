@@ -47,7 +47,7 @@ public class EmailServiceImpl implements EmailService {
         Context context = new Context();
         context.setVariables(properties);
 
-        helper.setFrom("authfortress@gmail.com");
+        helper.setFrom("authfortressapp@gmail.com");
         helper.setTo(to);
         helper.setSubject(subject);
 
