@@ -138,4 +138,4 @@ Contributions are welcome! Please fork the repository and submit pull requests t
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ### CONTACT
-For any inquiries or feedback regarding AuthFortress, please contact me at chiderauzoigwe2@gmail.com.
+For any inquiries or feedback regarding AuthFortress, please contact Chidera Uzoigwe at chiderauzoigwe2@gmail.com.
