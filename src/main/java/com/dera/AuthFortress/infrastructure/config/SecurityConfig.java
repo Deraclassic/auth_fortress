@@ -3,6 +3,7 @@ package com.dera.AuthFortress.infrastructure.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -30,20 +31,22 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(
-                                        "/api/v1/auth/**",
-                                        "/swagger-ui.html",
-                                        "/webjars/**",
-                                        "/swagger-ui/**",
-                                        "/configuration/security",
-                                        "/configuration/ui",
-                                        "/swagger-resources/**",
-                                        "/swagger-resources",
-                                        "/v2/api-docs",
-                                        "/v3/api-docs",
-                                        "/v3/api-docs/**"
+                                antMatcher(HttpMethod.POST, "/api/v1/auth/**"),
+antMatcher(HttpMethod.GET, "/api/v1/auth/**")
+//
+//                                        "/swagger-ui.html",
+//                                        "/webjars/**",
+//                                        "/swagger-ui/**",
+//                                        "/configuration/security",
+//                                        "/configuration/ui",
+//                                        "/swagger-resources/**",
+//                                        "/swagger-resources",
+//                                        "/v2/api-docs",
+//                                        "/v3/api-docs",
+//                                        "/v3/api-docs/**"
                                 ).permitAll()
-//                                .requestMatchers(antMatcher("/admin/**")).hasAnyAuthority("ADMIN")
-//                                .requestMatchers(antMatcher("/user/**")).hasAnyAuthority("USER")
+                                .requestMatchers(antMatcher("/admin/**")).hasAnyAuthority("ADMIN")
+                                .requestMatchers(antMatcher("/user/**")).hasAnyAuthority("USER")
                                 .anyRequest()
                                 .authenticated()
                 )
