@@ -2,6 +2,10 @@
 
 AuthFortress is a secure user authentication and authorization system built with Spring Boot and PostgreSQL.
 
+### ENTITY RELATIONSHIP DIAGRAM
+
+![Entity Relationship Diagram](src/main/resources/ERD.authfortress.png)
+
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -23,6 +27,7 @@ AuthFortress provides robust user authentication and authorization capabilities 
 - Role-based access control (ADMIN, USER)
 - Secure password hashing using BCrypt
 - Integration with PostgreSQL database
+
 
 ## Technologies Used
 
