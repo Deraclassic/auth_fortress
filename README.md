@@ -65,7 +65,7 @@ AuthFortress provides robust user authentication and authorization capabilities 
 - **API Documentation:** Swagger (OpenAPI)
 - **Simplified Java Development:** Lombok
 - **Email Notifications:** JavaMailSender
-- **Template Engine:** Thymeleaf
+- **Email Template Engine:** Thymeleaf
 
 ## Prerequisites
 
