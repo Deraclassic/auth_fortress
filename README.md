@@ -26,6 +26,9 @@ AuthFortress provides robust user authentication and authorization capabilities 
 **User Authentication and Security**
 
 - User Registration: Allow users to create accounts by providing their names, email, phone number, and password.
+- Activate Account using One Time Password (OTP):
+   - Send a unique OTP to the user's registered email for account activation.
+   - Validate the OTP entered by the user to activate their account securely.
 - User Login: Authenticate users with their credentials (email and password) to access the application securely.
 - Password Encryption: Encrypt user passwords using bcrypt to enhance security.
 - Session Management: Maintain user sessions securely to prevent unauthorized access.
