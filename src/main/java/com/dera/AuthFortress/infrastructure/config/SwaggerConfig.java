@@ -22,12 +22,12 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
                 ),
                 license = @License(
                         name = "AuthFortress Application",
-                        url = "https://github.com/Deraclassic"
+                        url = "https://github.com/Deraclassic/auth_fortress"
                 )
         ),
         externalDocs = @ExternalDocumentation(
                 description = "User Authentication and Authorization System",
-                url = "https://github.com/Deraclassic"
+                url = "https://github.com/Deraclassic/auth_fortress"
         ),
         security = {
                 @SecurityRequirement(
