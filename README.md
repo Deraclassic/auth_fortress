@@ -4,7 +4,7 @@ AuthFortress is a secure user authentication and authorization system built with
 
 ### ENTITY RELATIONSHIP DIAGRAM
 
-![Entity Relationship Diagram](src/main/resources/ERD.authfortress.png)
+![Entity Relationship Diagram](src/main/resources/ERD.png)
 
 ## Table of Contents
 
