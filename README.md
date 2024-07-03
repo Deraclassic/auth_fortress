@@ -79,11 +79,9 @@ Before you begin, ensure you have the following installed:
    git clone https://github.com/Deraclassic/auth_fortress.git
    cd AuthFortress
 
-## Setup Instructions
-
-1. **Set up PostgreSQL database:**
+2. **Set up PostgreSQL database:**
     - Create a PostgreSQL database and configure the connection in `application.properties`.
-2. **Email Setup:**
+3. **Email Setup:**
     - Configure your email settings in `application.properties` for sending verification emails.
    ```properties
    spring.mail.host=smtp.example.com
@@ -95,7 +93,7 @@ Before you begin, ensure you have the following installed:
      ```
    
     - Configure your EMAIL and EMAIL_PASSWORD in your Environment Variables.
-3. **JWT Setup:**
+4. **JWT Setup:**
    - Configure your JWT settings in `application.properties`.
 
      ```properties
@@ -103,7 +101,7 @@ Before you begin, ensure you have the following installed:
      jwt.expiration=86400000
      ```
      
-4. **Build and run the application:**
+5. **Build and run the application:**
 
     - Build the application using Maven:
 
