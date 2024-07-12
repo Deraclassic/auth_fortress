@@ -32,6 +32,8 @@ public class TheUser extends BaseClass implements UserDetails {
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<UserRole> roles;
+    @OneToMany(mappedBy = "user")
+    private List<AccessToken> tokens;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

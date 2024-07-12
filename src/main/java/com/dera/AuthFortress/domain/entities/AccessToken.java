@@ -19,11 +19,17 @@ public class AccessToken {
 
     @Column(unique = true)
     private String token;
+
+    @Column(length = 512) // Update length here
+    private String loginToken;
     private LocalDateTime createdAt;
     private LocalDateTime expiresAt;
     private LocalDateTime confirmedAt;
+    private boolean expired;
+    private boolean revoked;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private TheUser user;
 }
+

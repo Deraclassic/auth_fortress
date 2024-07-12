@@ -22,6 +22,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 
 @Service
@@ -43,9 +46,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final EmailService emailService;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+    private final AccessTokenRepository accessTokenRepository;
     @Value("${activation-host}")
     private String activateUrl;
-
 
     @Override
     public ResponseEntity<ResponseMessage> register(RegistrationRequest request) throws MessagingException {
@@ -63,7 +66,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         sendValidationEmail(user);
         return ResponseEntity.ok(new ResponseMessage("Account registered successfully"));
     }
-
 
     private void sendValidationEmail(TheUser user) throws MessagingException {
         var newToken = generateAndSaveActivationToken(user);
@@ -83,19 +85,20 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Transactional
     private String generateAndSaveActivationToken(TheUser user) {
         String generatedToken = generateActivationCode(6);
+        saveUserToken(user, generatedToken);
+
+        return generatedToken;
+    }
+
+    private void saveUserToken(TheUser user, String generatedToken) {
         var token = AccessToken.builder()
                 .token(generatedToken)
                 .createdAt(LocalDateTime.now())
                 .expiresAt(LocalDateTime.now().plusMinutes(15))
+                .expired(false)
                 .user(user)
                 .build();
-        try {
-            tokenRepository.save(token);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-        return generatedToken;
+        tokenRepository.save(token);
     }
 
     private String generateActivationCode(int length) {
@@ -111,9 +114,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        if (userRepository == null){
+        if (userRepository == null) {
             log.error("User repository is null");
-        }else {
+        } else {
             log.error("User repository is properly injected");
         }
         Authentication auth = authenticationManager.authenticate(
@@ -127,6 +130,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         claims.put("fullName", user.fullName());
 
         String jwtToken = jwtService.generateToken(claims, user);
+        saveLoginToken(user, jwtToken);
         return AuthenticationResponse.builder()
                 .id(user.getId())
                 .responseCode("201")
@@ -135,6 +139,17 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .token(jwtToken)
                 .responseMessage("You have logged in successfully")
                 .build();
+    }
+
+    private void saveLoginToken(TheUser user, String jwtToken) {
+        AccessToken token = accessTokenRepository.findByUserId(user.getId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        token.setLoginToken(jwtToken);
+        token.setCreatedAt(LocalDateTime.now());
+        token.setExpiresAt(LocalDateTime.now().plusMinutes(15));
+        token.setExpired(false);
+        token.setRevoked(false);
+        tokenRepository.save(token);
     }
 
     @Override
@@ -153,4 +168,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         saveToken.setConfirmedAt(LocalDateTime.now());
         tokenRepository.save(saveToken);
     }
+
+//    private Long getUserIdFromAuthentication(Authentication authentication) {
+//        Object principal = authentication.getPrincipal();
+//
+//        if (principal instanceof TheUser) {
+//            return ((TheUser) principal).getId();
+//        } else {
+//            throw new IllegalArgumentException("Authentication principal is not an instance of TheUser");
+//        }
+//    }
 }

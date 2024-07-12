@@ -7,12 +7,16 @@ import com.dera.AuthFortress.payload.response.RegisterResponse;
 import com.dera.AuthFortress.payload.response.ResponseMessage;
 import com.dera.AuthFortress.repository.UserRepository;
 import com.dera.AuthFortress.service.AuthenticationService;
+import com.dera.AuthFortress.service.impl.LogoutService;
 import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -41,5 +45,13 @@ public class AuthenticationController {
     public ResponseEntity<?> activateAccount(@RequestParam String token) throws MessagingException {
         service.activateAccount(token);
         return ResponseEntity.ok("Account activated successfully");
+    }
+
+    private final LogoutService logoutService;
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+        logoutService.logout(request, response, authentication);
+        return ResponseEntity.ok("You have successfully logged out.");
     }
 }
